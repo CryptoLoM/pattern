@@ -1,7 +1,10 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Pattern_Facade;
+using static Pattern_Facade.Program;
+using System;
 
-namespace Test_Facade
+
+
+namespace Pattern_Facade_Tests
 {
     [TestClass]
     public class SubsystemBaltasarTests
@@ -58,4 +61,35 @@ namespace Test_Facade
             Assert.AreEqual(expected, subsystem.operationTooDone());
         }
     }
+    public class Facade
+    {
+        public void StartOperation(string userRole)
+        {
+            if (string.IsNullOrEmpty(userRole))
+            {
+                throw new ArgumentException("User role cannot be null or empty.");
+            }
+
+            if (userRole != "Admin" && userRole != "User")
+            {
+                throw new ArgumentException("Invalid user role.");
+            }
+        }
+    }
+
+    [TestClass]
+    public class FacadeExceptionTests
+    {
+        [TestMethod]
+        [ExpectedException(typeof(ArgumentException), "User role cannot be null or empty.")]
+        public void TestFacadeOperation_ThrowsException()
+        {
+            var facade = new Facade();
+
+            // Виклик, який призводить до винятка
+            facade.StartOperation(string.Empty);  // Це кидає ArgumentException
+        }
+    }
+
+
 }
