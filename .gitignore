@@ -1,8 +1,8 @@
-.vs
+
 bin
 obj
-packages 
-ConsoleApp1/
+packages.config
+/ConsoleApp1 
 .gitignore
 packages.config
 
